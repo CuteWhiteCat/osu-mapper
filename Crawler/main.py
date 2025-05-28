@@ -221,9 +221,13 @@ async def main():
                 
                 with open(metadata_filepath, "w", encoding="utf-8") as f:
                     json.dump(final_metadata_list, f, ensure_ascii=False, indent=2)
-                
-                if collected_beatmap_sets_metadata: 
-                    print(f"Collected metadata {action_taken_metadata}: {metadata_filepath}")
+            else:
+                with open(metadata_filepath, "w", encoding="utf-8") as f:
+                    json.dump(collected_beatmap_sets_metadata, f, ensure_ascii=False, indent=2)
+                action_taken_metadata = "saved to"
+
+        if collected_beatmap_sets_metadata: 
+            print(f"Collected metadata {action_taken_metadata}: {metadata_filepath}")
 
         if rating_table:
             rating_filepath = os.path.join(DOWNLOAD_DIR, "rating_table.json")
@@ -253,9 +257,13 @@ async def main():
                 final_rating_dict.update(rating_table)         
                 with open(rating_filepath, "w", encoding="utf-8") as f:
                     json.dump(final_rating_dict, f, ensure_ascii=False, indent=2)
+            else:
+                with open(rating_filepath, "w", encoding="utf-8") as f:
+                    json.dump(rating_table, f, ensure_ascii=False, indent=2)
+                action_taken_rating = "saved to"    
                 
-                if rating_table: 
-                    print(f"Rating table {action_taken_rating}: {rating_filepath}")
+        if rating_table: 
+            print(f"Rating table {action_taken_rating}: {rating_filepath}")
 
         if not collected_set_ids:
             print("No beatmaps to download.")
