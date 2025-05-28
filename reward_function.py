@@ -3,6 +3,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
+from utils import build_rating_dict
+
+OSU_FOLDER = "./osu_files"
 
 # ==== 1. 解析 .osu 檔案 ====
 
@@ -95,8 +98,38 @@ def train_model(dataset, num_epochs=20, lr=0.001):
 
         print(f"Epoch {epoch+1}/{num_epochs} - Loss: {total_loss:.4f}")
 
+    (model.state_dict(), "beatmap_model.pt")
+
     return model
 
+# ==== 5. 推論 API ====
+_loaded_model = None
+_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def _load_model():
+    global _loaded_model
+    if _loaded_model is None:
+        m = BeatmapLSTM().to(_device)
+        m.load_state_dict(torch.load("beatmap_model.pt", map_location=_device))
+        m.eval()
+        _loaded_model = m
+    return _loaded_model
+
+@torch.no_grad()
+def evaluate_osu_file(osu_path: str) -> float:
+    """
+    給環境呼叫的 reward 函式：回傳預測 rating
+    """
+    seq = parse_osu_file(osu_path)
+    if not seq:
+        return 0.0     # 空圖給 0
+    lengths = torch.tensor([len(seq)], device=_device)
+    tensor = torch.tensor([seq], dtype=torch.float32, device=_device)
+    model = _load_model()
+    score = model(tensor, lengths).item()
+    return float(score)
+
 if __name__ == '__main__':
+    rating_dict = build_rating_dict(OSU_FOLDER)
     dataset = BeatmapDataset('./osu_files', rating_dict)
     model = train_model(dataset)

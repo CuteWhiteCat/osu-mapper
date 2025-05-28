@@ -3,7 +3,33 @@ import numpy as np
 import tempfile
 import os
 from reward_function import evaluate_osu_file  # 你自訂的 reward 函式
-from osuT5.osuT5.event import ContextType
+from Mapperatorinator.osuT5.osuT5.event import ContextType
+from dataclasses import dataclass, asdict
+from Mapperatorinator.inference import main
+
+@dataclass
+class BaseConfig:
+    audio_path: str
+    output_path: str
+    beatmap_path: str
+    gamemode: str   = "standard"
+    difficulty: int = 5
+    mapper_id: int | None = None
+    year: int  = 2023
+    hitsounded: bool = True
+    hp_drain_rate: int = 5
+    keycount: int = 4
+    hold_note_ratio: float | None = None
+    scroll_speed_ratio: float | None = None
+    descriptors: list[str] = ()
+    negative_descriptors: list[str] = ()
+    export_osz: bool = False
+    add_to_beatmap: bool = False
+    start_time: int | None = None
+    end_time: int | None = None
+    in_context: list[ContextType] = (ContextType.none,)
+    output_type: str = "osu"
+    seed: int | None = None
 
 class MapperEnv(gym.Env):
     def __init__(self):
@@ -57,41 +83,35 @@ class MapperEnv(gym.Env):
             "super_timing": bool(round(action[6])),
         }
 
-    def _generate_map(self, params):
-        # 建立臨時輸出檔案路徑
+    def _generate_map(self, params: dict) -> str:
+        """
+        給 PPO 用：把動作轉好的 `params` 打進 Mapperatorinator，
+        生成 .osu 檔並回傳路徑。
+        """
+        # ---------- 1. 準備輸出位置 ----------
         tmp_dir = tempfile.mkdtemp(dir=self.output_dir)
-        output_path = os.path.join(tmp_dir, "output.osu")
+        output_osu = os.path.join(tmp_dir, "output.osu")
 
-        # 建立 config.py（或直接呼叫 python script）
-        config = {
-            "audio_path": self.input_audio,
-            "output_path": output_path,
-            "beatmap_path": self.input_beatmap,
-            "gamemode": "standard",
-            "difficulty": 5,
-            "mapper_id": None,
-            "year": 2023,
-            "hitsounded": True,
-            "hp_drain_rate": 5,
-            "keycount": 4,
-            "hold_note_ratio": None,
-            "scroll_speed_ratio": None,
-            "descriptors": [],
-            "negative_descriptors": [],
-            "export_osz": False,
-            "add_to_beatmap": False,
-            "start_time": None,
-            "end_time": None,
-            "in_context": [ContextType(c.lower()) for c in "[NONE]".split(',')],
-            "output_type": [ContextType(c.lower()) for c in "[MAP]".split(',')],
-            "output_type": "osu",
-            "seed": None,
-            **params
-        }
+        # ---------- 2. 組裝 config ----------
+        #   先用 dataclass 給一份「乾淨的基底」，之後再用 action 參數覆寫
+        cfg = asdict(
+            BaseConfig(
+                audio_path   = self.input_audio,
+                output_path  = output_osu,
+                beatmap_path = self.input_beatmap,
+            )
+        )
+        # 把 agent 產生的高階參數（CS/AR/Temperature …）塞進去
+        cfg.update(params)
 
-        # 實際呼叫 Mapperatorinator（依照你的介面）
-        # 假設你有個 generate_from_config(config) 函式
-        from Mapperatorinator.main import generate_from_config
-        generate_from_config(config)
+        # ---------- 3. 呼叫 Mapperatorinator ----------
+        #   inference.main 會回傳 (cfg, result_path, osz_path)
+        #   實際生成的 .osu 位置就會是 cfg["output_path"]
+        try:
+            _, _, _ = main(cfg)          # 只需 Side-effect：寫檔
+        except Exception as e:
+            # 若產生失敗就直接丟回 template，reward 會很低
+            print(f"[MapperEnv] Mapperatorinator 失敗：{e}")
+            return self.input_beatmap
 
-        return output_path
+        return output_osu
