@@ -1,5 +1,0 @@
-defaults:
-  - train
-  - _self_
-  - model: osu_r
-

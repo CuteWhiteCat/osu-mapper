@@ -1,1 +1,1 @@
-拔拔臭
+# osu-mapper

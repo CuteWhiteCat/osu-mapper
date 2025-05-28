@@ -1,0 +1,10 @@
+[project]
+name = "crawler"
+version = "0.1.0"
+description = "A simple crawler for fetch osu maps from sayobot!"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiohttp>=3.11.18",
+    "asyncio>=3.4.3",
+]

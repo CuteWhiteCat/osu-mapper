@@ -1,9 +1,6 @@
-.venv
-__pycache__
-logs
-logs_fid
-tensorboard_logs
-.idea
-test
-test_inference.py
-osu_files
+Crawler/.venv
+Crawler/.env
+Crawler/.python-version
+osu_beatmaps
+osu_beatmaps/*
+osu_beatmaps.zip

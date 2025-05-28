@@ -1,6 +1,0 @@
-defaults:
-  - model
-  - _self_
-
-name: 'openai/whisper-small'
-input_features: true
