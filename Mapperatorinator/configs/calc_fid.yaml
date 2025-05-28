@@ -1,0 +1,33 @@
+defaults:
+  - base_fid
+  - inference_v29@inference
+  - _self_
+
+compile: false
+num_processes: 3
+seed: 0
+
+skip_generation: false
+fid: true
+rhythm_stats: true
+
+dataset_path: /workspace/datasets/ORS16291
+dataset_start: 16200
+dataset_end: 16291
+
+classifier_ckpt: 'OliBomby/osu-classifier'
+classifier_batch_size: 16
+
+inference:
+  super_timing: false
+  temperature: 0.9        # Sampling temperature
+  top_p: 0.9              # Top-p sampling threshold
+  lookback: 0.5             # Fraction of audio sequence to fill with tokens from previous inference window
+  lookahead: 0.4            # Fraction of audio sequence to skip at the end of the audio window
+  year: 2022
+
+hydra:
+  job:
+    chdir: True
+  run:
+    dir: ./logs_fid/${now:%Y-%m-%d}/${now:%H-%M-%S}
