@@ -6,3 +6,4 @@ tensorboard_logs
 .idea
 test
 test_inference.py
+osu_files
