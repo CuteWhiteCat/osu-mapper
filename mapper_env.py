@@ -40,7 +40,7 @@ class BaseConfig:
     audio_path: str
     output_path: str
     beatmap_path: str
-    model_path: str = "beatmap_model.pt" 
+    model_path: str
     device: str = "cpu"
     osut5: dict = field(default_factory=dict)
     gamemode: str = "standard"
@@ -159,7 +159,6 @@ class MapperEnv(gym.Env):
             output_path=output_osu,
             beatmap_path=self.input_beatmap,
             # 目前預設是空或 HF repo，改成本地路徑：
-            model_path="Mapperatorinator V30"
         ))
         cfg.update(params)
         # 3) 呼叫 Mapperatorinator
