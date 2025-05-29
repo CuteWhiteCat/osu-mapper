@@ -77,11 +77,15 @@ class ModelConfig:
 
 @dataclass
 class DataConfig:
-    dataset_type: str = "mmrs"   # Dataset type (ors/mmrs)
-    train_dataset_path: str = "/workspace/datasets/MMRS39389"  # Training dataset directory
+    dataset_type: str = "mmrs"  # Dataset type (ors/mmrs)
+    train_dataset_path: str = (
+        "/workspace/datasets/MMRS39389"  # Training dataset directory
+    )
     train_dataset_start: int = 0  # Training dataset start index
     train_dataset_end: int = 38689  # Training dataset end index
-    test_dataset_path: str = "/workspace/datasets/MMRS39389"  # Testing/validation dataset directory
+    test_dataset_path: str = (
+        "/workspace/datasets/MMRS39389"  # Testing/validation dataset directory
+    )
     test_dataset_start: int = 38689  # Testing/validation dataset start index
     test_dataset_end: int = 39389  # Testing/validation dataset end index
     src_seq_len: int = 1024
@@ -89,7 +93,9 @@ class DataConfig:
     sample_rate: int = 16000
     hop_length: int = 128
     cycle_length: int = 16
-    per_track: bool = True  # Loads all beatmaps in a track sequentially which optimizes audio data loading
+    per_track: bool = (
+        True  # Loads all beatmaps in a track sequentially which optimizes audio data loading
+    )
     only_last_beatmap: bool = False  # Only use the last beatmap in the mapset
     center_pad_decoder: bool = False  # Center pad decoder input
     num_classes: int = 152680
@@ -112,7 +118,9 @@ class DataConfig:
     add_year_token: bool = True
     add_hitsounded_token: bool = True  # Add token for whether the map has hitsounds
     add_song_length_token: bool = True  # Add token for the length of the song
-    add_song_position_token: bool = True  # Add token for the position of the song in the mapset
+    add_song_position_token: bool = (
+        True  # Add token for the position of the song in the mapset
+    )
     add_descriptors: bool = True
     add_empty_sequences: bool = True
     add_empty_sequences_at_step: int = -1
@@ -120,20 +128,54 @@ class DataConfig:
     add_pre_tokens_at_step: int = -1
     max_pre_token_len: int = -1
     timing_random_offset: int = 2
-    add_gd_context: bool = False  # Prefix the decoder with tokens of another beatmap in the mapset
+    add_gd_context: bool = (
+        False  # Prefix the decoder with tokens of another beatmap in the mapset
+    )
     min_difficulty: float = 0  # Minimum difficulty to consider including in the dataset
-    sample_weights_path: str = ''  # Path to sample weights
+    sample_weights_path: str = ""  # Path to sample weights
     rhythm_weight: float = 3.0  # Weight of rhythm tokens in the loss calculation
-    lookback: float = 0  # Fraction of audio sequence to fill with tokens from previous inference window
-    lookahead: float = 0  # Fraction of audio sequence to skip at the end of the audio window
-    context_types: list[dict[str, list[ContextType]]] = field(default_factory=lambda: [
-        {"in": [ContextType.NONE], "out": [ContextType.TIMING, ContextType.KIAI, ContextType.MAP, ContextType.SV]},
-        {"in": [ContextType.NO_HS], "out": [ContextType.TIMING, ContextType.KIAI, ContextType.MAP, ContextType.SV]},
-        {"in": [ContextType.GD], "out": [ContextType.TIMING, ContextType.KIAI, ContextType.MAP, ContextType.SV]}
-    ])  # List of context types to include in the dataset
-    context_weights: list[float] = field(default_factory=lambda: [4, 1, 1])  # List of weights for each context type. Determines how often each context type is sampled
-    descriptors_path: str = ''  # Path to file with all beatmap descriptors
-    mappers_path: str = ''  # Path to file with all beatmap mappers
+    lookback: float = (
+        0  # Fraction of audio sequence to fill with tokens from previous inference window
+    )
+    lookahead: float = (
+        0  # Fraction of audio sequence to skip at the end of the audio window
+    )
+    context_types: list[dict[str, list[ContextType]]] = field(
+        default_factory=lambda: [
+            {
+                "in": [ContextType.NONE],
+                "out": [
+                    ContextType.TIMING,
+                    ContextType.KIAI,
+                    ContextType.MAP,
+                    ContextType.SV,
+                ],
+            },
+            {
+                "in": [ContextType.NO_HS],
+                "out": [
+                    ContextType.TIMING,
+                    ContextType.KIAI,
+                    ContextType.MAP,
+                    ContextType.SV,
+                ],
+            },
+            {
+                "in": [ContextType.GD],
+                "out": [
+                    ContextType.TIMING,
+                    ContextType.KIAI,
+                    ContextType.MAP,
+                    ContextType.SV,
+                ],
+            },
+        ]
+    )  # List of context types to include in the dataset
+    context_weights: list[float] = field(
+        default_factory=lambda: [4, 1, 1]
+    )  # List of weights for each context type. Determines how often each context type is sampled
+    descriptors_path: str = ""  # Path to file with all beatmap descriptors
+    mappers_path: str = ""  # Path to file with all beatmap mappers
     add_timing: bool = False  # Add beatmap timing to map context
     add_out_context_types: bool = True  # Add tokens indicating types of the out context
     add_snapping: bool = True  # Model hit object snapping
@@ -142,14 +184,26 @@ class DataConfig:
     add_distances: bool = True  # Model hit object distances
     add_positions: bool = True  # Model hit object coordinates
     position_precision: int = 32  # Precision of hit object coordinates
-    position_split_axes: bool = False  # Split hit object X and Y coordinates into separate tokens
-    position_range: list[int] = field(default_factory=lambda: [-256, 768, -256, 640])  # Range of hit object coordinates
+    position_split_axes: bool = (
+        False  # Split hit object X and Y coordinates into separate tokens
+    )
+    position_range: list[int] = field(
+        default_factory=lambda: [-256, 768, -256, 640]
+    )  # Range of hit object coordinates
     dt_augment_prob: float = 0.5  # Probability of augmenting the dataset with DT
-    dt_augment_range: list[float] = field(default_factory=lambda: [1.25, 1.5])  # Range of DT augmentation
-    types_first: bool = True  # Put the type token at the start of the group before the timeshift token
+    dt_augment_range: list[float] = field(
+        default_factory=lambda: [1.25, 1.5]
+    )  # Range of DT augmentation
+    types_first: bool = (
+        True  # Put the type token at the start of the group before the timeshift token
+    )
     add_kiai: bool = True  # Add kiai times to map context
-    gamemodes: list[int] = field(default_factory=lambda: [0, 1, 2, 3])  # List of gamemodes to include in the dataset
-    mania_bpm_normalized_scroll_speed: bool = True  # Normalize mania scroll speed by BPM
+    gamemodes: list[int] = field(
+        default_factory=lambda: [0, 1, 2, 3]
+    )  # List of gamemodes to include in the dataset
+    mania_bpm_normalized_scroll_speed: bool = (
+        True  # Normalize mania scroll speed by BPM
+    )
     add_sv_special_token: bool = True  # Add extra special token for current SV
     add_sv: bool = True  # Model slider velocity in std and ctb
     add_mania_sv: bool = False  # Add mania scroll velocity in map context
@@ -187,11 +241,11 @@ class CheckpointConfig:
 
 @dataclass
 class LoggingConfig:
-    log_with: str = 'wandb'     # Logging service (wandb/tensorboard)
+    log_with: str = "wandb"  # Logging service (wandb/tensorboard)
     every_steps: int = 10
     grad_l2: bool = True
     weights_l2: bool = True
-    mode: str = 'online'
+    mode: str = "online"
 
 
 @dataclass
@@ -225,6 +279,7 @@ class TrainConfig:
     hydra: Any = MISSING
     mode: str = "train"
 
+
 try:
     OmegaConf.register_new_resolver("context_type", lambda x: ContextType(x.lower()))
 except ValueError:
@@ -244,11 +299,13 @@ class BaseConfig:
     diff_ckpt: str = "OliBomby/osu-diffusion-v2"
     version: str = "Mapperatorinator V30"
     device: str = "cpu"
-    osut5: dict = field(default_factory=lambda: {
-        "pipeline":   "diffusion",
-        "checkpoint": "checkpoint-1000",
-        "data":       {}
-    })
+    osut5: dict = field(
+        default_factory=lambda: {
+            "pipeline": "diffusion",
+            "checkpoint": "checkpoint-1000",
+            "data": {},
+        }
+    )
     gamemode: str = "standard"
     difficulty: int = 5
     mapper_id: int | None = None
@@ -268,51 +325,57 @@ class BaseConfig:
     output_type: list[str] = field(default_factory=lambda: ["MAP"])
     # output_type: str = "osu"
     seed: int | None = None
-    temperature: float = 0.9            
+    temperature: float = 0.9
     top_p: float = 0.9
     generate_positions: bool = False
     timesteps: list[int] = field(default_factory=lambda: [10] + [0] * 99)
     beatmap_id: int | None = None
     slider_tick_rate: float | None = None
     lookback: float = 0.5
-    lookahead: float = 0.4 
-    timing_leniency: int = 20  
-    cfg_scale: float = 1.0  
-    temperature: float = 1.0 
-    timing_temperature: float = 0.1 
-    mania_column_temperature: float = 0.5  
-    taiko_hit_temperature: float = 0.5 
-    timeshift_bias: float = 0.0 
-    top_p: float = 0.95 
-    top_k: int = 0 
-    parallel: bool = False 
-    do_sample: bool = True 
+    lookahead: float = 0.4
+    timing_leniency: int = 20
+    cfg_scale: float = 1.0
+    temperature: float = 1.0
+    timing_temperature: float = 0.1
+    mania_column_temperature: float = 0.5
+    taiko_hit_temperature: float = 0.5
+    timeshift_bias: float = 0.0
+    top_p: float = 0.95
+    top_k: int = 0
+    parallel: bool = False
+    do_sample: bool = True
     num_beams: int = 1
-    super_timing: bool = False 
-    timer_num_beams: int = 2 
-    timer_bpm_threshold: float = 0.7  
-    timer_cfg_scale: float = 1.0 
-    timer_iterations: int = 20 
-    max_batch_size: int = 16 
+    super_timing: bool = False
+    timer_num_beams: int = 2
+    timer_bpm_threshold: float = 0.7
+    timer_cfg_scale: float = 1.0
+    timer_iterations: int = 20
+    max_batch_size: int = 16
     ###
     diff_cfg_scale: float = 1.0  # Scale of classifier-free guidance
     compile: bool = False  # PyTorch 2.0 optimization
     pad_sequence: bool = False  # Pad sequence to max_seq_len
-    diff_ckpt: str = ''  # Path to checkpoint for diffusion model
-    diff_refine_ckpt: str = ''  # Path to checkpoint for refining diffusion model
-    beatmap_idx: str = 'osu_diffusion/beatmap_idx.pickle'  # Path to beatmap index
+    diff_ckpt: str = ""  # Path to checkpoint for diffusion model
+    diff_refine_ckpt: str = ""  # Path to checkpoint for refining diffusion model
+    beatmap_idx: str = "osu_diffusion/beatmap_idx.pickle"  # Path to beatmap index
     refine_iters: int = 10  # Number of refinement iterations
-    random_init: bool = False  # Whether to initialize with random noise instead of positions generated by the previous model
-    timesteps: list[int] = field(default_factory=lambda: [100, 0, 0, 0, 0, 0, 0, 0, 0, 0])  # The number of timesteps we want to take from equally-sized portions of the original process
+    random_init: bool = (
+        False  # Whether to initialize with random noise instead of positions generated by the previous model
+    )
+    timesteps: list[int] = field(
+        default_factory=lambda: [100, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    )  # The number of timesteps we want to take from equally-sized portions of the original process
     max_seq_len: int = 1024  # Maximum sequence length for diffusion
-    overlap_buffer: int = 128  # Buffer zone at start and end of sequence to avoid edge effects (should be less than half of max_seq_len)
+    overlap_buffer: int = (
+        128  # Buffer zone at start and end of sequence to avoid edge effects (should be less than half of max_seq_len)
+    )
     # Metadata settings
     bpm: int = 120  # Beats per minute of input audio
     offset: int = 0  # Start of beat, in miliseconds, from the beginning of input audio
-    title: str = ''  # Song title
-    artist: str = ''  # Song artist
-    creator: str = ''  # Beatmap creator
-    version: str = ''  # Beatmap version
+    title: str = ""  # Song title
+    artist: str = ""  # Song artist
+    creator: str = ""  # Beatmap creator
+    version: str = ""  # Beatmap version
     background: Optional[str] = None  # File name of background image
     preview_time: int = -1  # Time in milliseconds to start previewing the song
 
@@ -331,6 +394,7 @@ class BaseConfig:
     profile: ProfileConfig = field(default_factory=ProfileConfig)
     hydra: Any = MISSING
     mode: str = "train"
+
 
 osu_folder = "osu_files"
 
@@ -355,7 +419,9 @@ class MapperEnv(gym.Env):
         self.input_audio = "audio.mp3"
         # self.input_beatmap = "template.osu"
         self.input_beatmap = os.path.join(os.getcwd(), "osu_files", "template.osu")
-        self.model_path = str(pathlib.Path(__file__).resolve().parent / "beatmap_model.pt")
+        self.model_path = str(
+            pathlib.Path(__file__).resolve().parent / "beatmap_model.pt"
+        )
         template = None
 
         # 1) 先找 .osu
@@ -418,18 +484,19 @@ class MapperEnv(gym.Env):
             "super_timing": bool(round(action[6])),
         }
 
-
     def _generate_map(self, params: dict) -> str:
         # 1) 準備輸出目錄
         tmp_dir = tempfile.mkdtemp(dir=self.output_dir)
         output_osu = os.path.join(tmp_dir, "output.osu")
         # 2) 組 config
-        cfg = asdict(BaseConfig(
-            audio_path=self.input_audio,
-            output_path=output_osu,
-            beatmap_path=self.input_beatmap,
-            model_path="OliBomby/Mapperatorinator-v30",
-        ))
+        cfg = asdict(
+            BaseConfig(
+                audio_path=self.input_audio,
+                output_path=output_osu,
+                beatmap_path=self.input_beatmap,
+                model_path="OliBomby/Mapperatorinator-v30",
+            )
+        )
         cfg.update(params)
         config_dir = pathlib.Path(__file__).resolve().parent / "configs"
         config_dir.mkdir(exist_ok=True)
