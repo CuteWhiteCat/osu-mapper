@@ -3,4 +3,4 @@ Crawler/.env
 Crawler/.python-version
 osu_beatmaps
 osu_beatmaps/*
-osu_beatmaps.zip
+*.zip
