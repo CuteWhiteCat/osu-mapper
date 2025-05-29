@@ -1,0 +1,21 @@
+accelerate
+pydub
+nnAudio
+PyYAML
+transformers
+hydra-core
+tensorboard
+slider @ git+https://github.com/OliBomby/slider.git@gedagedigedagedaoh
+torch_tb_profiler
+wandb
+matplotlib
+pandas
+pyarrow
+einops
+lightning
+pywebview[qt]
+pyqtwebengine
+flask
+audioop-lts
+torch
+torchaudio

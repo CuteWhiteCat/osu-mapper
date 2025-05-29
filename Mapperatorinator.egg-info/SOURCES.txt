@@ -1,0 +1,7 @@
+LICENSE
+README.md
+setup.py
+Mapperatorinator.egg-info/PKG-INFO
+Mapperatorinator.egg-info/SOURCES.txt
+Mapperatorinator.egg-info/dependency_links.txt
+Mapperatorinator.egg-info/top_level.txt

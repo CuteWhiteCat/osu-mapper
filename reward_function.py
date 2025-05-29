@@ -98,7 +98,7 @@ def train_model(dataset, num_epochs=20, lr=0.001):
 
         print(f"Epoch {epoch+1}/{num_epochs} - Loss: {total_loss:.4f}")
 
-    (model.state_dict(), "beatmap_model.pt")
+    torch.save(model.state_dict(), "beatmap_model.pt")
 
     return model
 
@@ -133,3 +133,5 @@ if __name__ == '__main__':
     rating_dict = build_rating_dict(OSU_FOLDER)
     dataset = BeatmapDataset('./osu_files', rating_dict)
     model = train_model(dataset)
+    # train_model 内已经 save 了，至此模型文件就生成在当前目录
+    print("beatmap_model.pt 已生成，大小：", os.path.getsize("beatmap_model.pt"), "bytes")
