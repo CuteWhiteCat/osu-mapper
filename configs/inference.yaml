@@ -1,187 +1,14 @@
 audio_path: audio.mp3
-output_path: output_maps\tmprt21xnta\output.osu
+output_path: output_maps\tmpkylu_jby\output.osu
 beatmap_path: osu_files\Carpool Tunnel - Afterlight (_Epreus) [Expert].osu
 model_path: OliBomby/Mapperatorinator-v30
 diff_ckpt: ''
 version: ''
 device: cpu
 osut5:
-  compile: true
-  device: gpu
-  precision: bf16
-  seed: 42
-  flash_attention: false
-  checkpoint_path: ''
-  pretrained_path: ''
-  pretrained_t5_compat: false
-  model:
-    name: openai/whisper-base
-    config_base: ''
-    input_features: true
-    project_encoder_input: true
-    embed_decoder_input: true
-    manual_norm_weights: false
-    do_style_embed: false
-    do_difficulty_embed: false
-    do_mapper_embed: false
-    do_song_position_embed: false
-    cond_dim: 128
-    cond_size: 0
-    rope_type: dynamic
-    rope_encoder_scaling_factor: 1.0
-    rope_decoder_scaling_factor: 1.0
-    spectrogram:
-      implementation: nnAudio
-      log_scale: false
-      sample_rate: 16000
-      hop_length: 128
-      n_fft: 1024
-      n_mels: 388
-      f_min: 0
-      f_max: 8000
-      pad_mode: constant
-    overwrite: {}
-    add_config: {}
-  data:
-    dataset_type: mmrs
-    train_dataset_path: /workspace/datasets/MMRS39389
-    train_dataset_start: 0
-    train_dataset_end: 38689
-    test_dataset_path: /workspace/datasets/MMRS39389
-    test_dataset_start: 38689
-    test_dataset_end: 39389
-    src_seq_len: 1024
-    tgt_seq_len: 2048
-    sample_rate: 16000
-    hop_length: 128
-    cycle_length: 16
-    per_track: true
-    only_last_beatmap: false
-    center_pad_decoder: false
-    num_classes: 152680
-    num_diff_classes: 24
-    max_diff: 12
-    num_cs_classes: 21
-    class_dropout_prob: 0.2
-    diff_dropout_prob: 0.2
-    mapper_dropout_prob: 0.2
-    cs_dropout_prob: 0.2
-    year_dropout_prob: 0.2
-    hold_note_ratio_dropout_prob: 0.2
-    scroll_speed_ratio_dropout_prob: 0.2
-    descriptor_dropout_prob: 0.2
-    add_gamemode_token: true
-    add_diff_token: true
-    add_style_token: false
-    add_mapper_token: true
-    add_cs_token: true
-    add_year_token: true
-    add_hitsounded_token: true
-    add_song_length_token: true
-    add_song_position_token: true
-    add_descriptors: true
-    add_empty_sequences: true
-    add_empty_sequences_at_step: -1
-    add_pre_tokens: false
-    add_pre_tokens_at_step: -1
-    max_pre_token_len: -1
-    timing_random_offset: 2
-    add_gd_context: false
-    min_difficulty: 0
-    sample_weights_path: ''
-    rhythm_weight: 3.0
-    lookback: 0
-    lookahead: 0
-    context_types:
-    - in:
-      - NONE
-      out:
-      - TIMING
-      - KIAI
-      - MAP
-      - SV
-    - in:
-      - NO_HS
-      out:
-      - TIMING
-      - KIAI
-      - MAP
-      - SV
-    - in:
-      - GD
-      out:
-      - TIMING
-      - KIAI
-      - MAP
-      - SV
-    context_weights:
-    - 4
-    - 1
-    - 1
-    descriptors_path: ''
-    mappers_path: ''
-    add_timing: false
-    add_out_context_types: true
-    add_snapping: true
-    add_timing_points: true
-    add_hitsounds: true
-    add_distances: true
-    add_positions: true
-    position_precision: 32
-    position_split_axes: false
-    position_range:
-    - -256
-    - 768
-    - -256
-    - 640
-    dt_augment_prob: 0.5
-    dt_augment_range:
-    - 1.25
-    - 1.5
-    types_first: true
-    add_kiai: true
-    gamemodes:
-    - 0
-    - 1
-    - 2
-    - 3
-    mania_bpm_normalized_scroll_speed: true
-    add_sv_special_token: true
-    add_sv: true
-    add_mania_sv: false
-  dataloader:
-    num_workers: 8
-  optim:
-    name: adamwscale
-    base_lr: 0.01
-    batch_size: 128
-    total_steps: 65536
-    warmup_steps: 10000
-    lr_scheduler: cosine
-    weight_decay: 0.0
-    grad_clip: 1.0
-    grad_acc: 8
-    final_cosine: 1.0e-05
-  eval:
-    every_steps: 1000
-    steps: 500
-  checkpoint:
-    every_steps: 5000
-  logging:
-    log_with: wandb
-    every_steps: 10
-    grad_l2: true
-    weights_l2: true
-    mode: online
-  profile:
-    do_profile: false
-    early_stop: false
-    wait: 8
-    warmup: 8
-    active: 8
-    repeat: 1
-  hydra: ???
-  mode: train
+  pipeline: diffusion
+  checkpoint: checkpoint-1000
+  data: {}
 gamemode: standard
 difficulty: 5
 mapper_id: null
@@ -220,7 +47,7 @@ slider_tick_rate: null
 lookback: 0.5
 lookahead: 0.4
 timing_leniency: 20
-cfg_scale: 1.0
+cfg_scale: 1.1286962032318115
 timing_temperature: 0.1
 mania_column_temperature: 0.5
 taiko_hit_temperature: 0.5
@@ -229,7 +56,7 @@ top_k: 0
 parallel: false
 do_sample: true
 num_beams: 1
-super_timing: true
+super_timing: false
 timer_num_beams: 2
 timer_bpm_threshold: 0.7
 timer_cfg_scale: 1.0

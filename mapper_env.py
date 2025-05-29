@@ -244,7 +244,11 @@ class BaseConfig:
     diff_ckpt: str = "OliBomby/osu-diffusion-v2"
     version: str = "Mapperatorinator V30"
     device: str = "cpu"
-    osut5: dict = field(default_factory=lambda: asdict(TrainConfig()))    
+    osut5: dict = field(default_factory=lambda: {
+        "pipeline":   "diffusion",
+        "checkpoint": "checkpoint-1000",
+        "data":       {}
+    })
     gamemode: str = "standard"
     difficulty: int = 5
     mapper_id: int | None = None
