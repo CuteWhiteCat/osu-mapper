@@ -51,17 +51,41 @@ def parse_osu_file(filepath):
 
 
 class BeatmapLSTM(nn.Module):
-    def __init__(self, input_size=4, hidden_size=64, num_layers=2):
+    def __init__(self, input_size=4, hidden_size=64, num_layers=2, dropout=0.3, bidirectional=True):
         super(BeatmapLSTM, self).__init__()
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
-        self.fc = nn.Linear(hidden_size, 1)
+        self.bidirectional = bidirectional
+        self.hidden_size = hidden_size
+        self.num_directions = 2 if bidirectional else 1
+
+        self.lstm = nn.LSTM(
+            input_size, 
+            hidden_size, 
+            num_layers, 
+            dropout=dropout if num_layers > 1 else 0.0, 
+            batch_first=True, 
+            bidirectional=bidirectional
+        )
+
+        # 加一層非線性與 dropout
+        self.fc = nn.Sequential(
+            nn.Linear(hidden_size * self.num_directions, 64),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(64, 1)  # 最終輸出一個值
+        )
 
     def forward(self, x, lengths):
-        packed = nn.utils.rnn.pack_padded_sequence(
-            x, lengths, batch_first=True, enforce_sorted=False
-        )
+        # 打包序列
+        packed = nn.utils.rnn.pack_padded_sequence(x, lengths, batch_first=True, enforce_sorted=False)
         packed_output, (hn, cn) = self.lstm(packed)
-        out = self.fc(hn[-1])
+
+        # 使用最後一層的 hidden state（兩個方向拼接）
+        if self.bidirectional:
+            last_hidden = torch.cat((hn[-2], hn[-1]), dim=1)
+        else:
+            last_hidden = hn[-1]
+
+        out = self.fc(last_hidden)
         return out.squeeze(1)
 
 
