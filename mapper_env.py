@@ -83,13 +83,10 @@ def train_rl(num_episodes=10):
     # Initialize environment: update audio path to audios/audio.mp3
     env = MapperEnv(audio="audios/audio.mp3")
     for episode in range(num_episodes):
-        observation = env.reset()
-        done = False
         total_reward = 0
-        while not done:
-            action = env.action_space.sample()
-            observation, reward, done, info = env.step(action)
-            total_reward += reward
+        action = env.action_space.sample()
+        reward = env.step(action)
+        total_reward += reward
         print(f"Episode {episode + 1}: Total Reward = {total_reward}")
 
 

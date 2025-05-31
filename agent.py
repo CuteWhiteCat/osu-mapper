@@ -7,13 +7,13 @@ env = MapperEnv(audio="audios/audio.mp3")
 
 # 設定參數空間的每個離散值
 discrete_values = [
-    [2.0, 4.0, 6.0],      # circle_size
-    [3.0, 5.0, 7.0, 8.0, 9.0, 10.0],     # overall_difficulty
-    [5.0, 7.5, 10.0],     # approach_rate
-    [0.8, 1.4, 2.0],      # slider_multiplier
-    [0.6, 1.0, 1.4],      # temperature
-    [1.0, 5.0, 10.0],     # cfg_scale
-    [0.0, 1.0],           # super_timing
+    [2.0, 3.0, 4.0, 5.0, 6.0],                                                        # circle_size
+    [3.0, 3.5, 4.0, 4.5 ,5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0],     # overall_difficulty
+    [5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0],                         # approach_rate
+    [0.8, 1.1, 1.4, 1.7, 2.0],                                                        # slider_multiplier
+    [0.6, 0.8, 1.0, 1.2, 1.4],                                                        # temperature
+    [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],                              # cfg_scale
+    [0.0, 1.0],                                                                       # super_timing
 ]
 
 # Q-Table 以 tuple(action) 為 key
