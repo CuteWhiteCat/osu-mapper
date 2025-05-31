@@ -18,7 +18,6 @@ if _repo.exists():
 from reward_function import evaluate_osu_file
 from Mapperatorinator.inference import main
 
-
 class MapperEnv(gym.Env):
     def __init__(self, audio="audios/audio.mp3", osu_folder="output_maps"):
         super().__init__()
@@ -59,8 +58,7 @@ class MapperEnv(gym.Env):
         # 計算 reward
         reward = evaluate_osu_file(osu_path)
 
-        # 單步問題，done 一律為 True
-        return np.zeros((1,), dtype=np.float32), reward, True, {}
+        return reward
 
     def _decode_action(self, action):
         # 將連續空間值轉成實際 config 值 using self.cfg instead of self.conf

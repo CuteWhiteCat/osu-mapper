@@ -4,6 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 from utils import build_rating_dict
+import matplotlib.pyplot as plt
 
 OSU_FOLDER = "./osu_files"
 
@@ -106,6 +107,7 @@ def train_model(dataset, num_epochs=20, lr=0.001):
     model = BeatmapLSTM()
     optimizer = optim.Adam(model.parameters(), lr=lr)
     criterion = nn.MSELoss()
+    losses = []
 
     for epoch in range(num_epochs):
         total_loss = 0
@@ -118,7 +120,17 @@ def train_model(dataset, num_epochs=20, lr=0.001):
             optimizer.step()
             total_loss += loss.item()
 
-        print(f"Epoch {epoch+1}/{num_epochs} - Loss: {total_loss:.4f}")
+        avg_loss = total_loss / len(dataloader)
+        losses.append(avg_loss)
+
+        print(f"Epoch {epoch+1}/{num_epochs} - Loss: {avg_loss:.4f}")
+
+    plt.plot(losses, label='loss')
+    plt.xlabel("Epoch")
+    plt.ylabel("Average Loss")
+    plt.title("Training Loss Curve")
+    plt.savefig("loss_curve.png")
+    plt.close()
 
     torch.save(model.state_dict(), "beatmap_model.pt")
 
