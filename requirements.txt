@@ -19,3 +19,4 @@ flask
 audioop-lts
 torch
 torchaudio
+gym

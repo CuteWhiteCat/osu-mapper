@@ -26,21 +26,23 @@ def parse_osu_file(filepath):
         if in_hit_objects:
             if not line or line.startswith("["):
                 break
-            parts = line.split(",")
-            if len(parts) < 5:
-                continue
-            x = int(parts[0])
-            y = int(parts[1])
-            time = int(parts[2])
-            object_type = int(parts[3]) & 0b1111  # Only keep object type flags
+            try:
+                parts = line.split(",")
+                if len(parts) < 5:
+                    continue
+                x = int(parts[0])
+                y = int(parts[1])
+                time = int(parts[2])
+                object_type = int(parts[3]) & 0b1111  # Only keep object type flags
 
-            time_delta = time - last_time if last_time != 0 else 0
-            last_time = time
+                time_delta = time - last_time if last_time != 0 else 0
+                last_time = time
 
-            hit_objects.append(
-                [x / 512.0, y / 384.0, time_delta / 1000.0, object_type / 8.0]
-            )  # normalize
-
+                hit_objects.append(
+                    [x / 512.0, y / 384.0, time_delta / 1000.0, object_type / 8.0]
+                )  # normalize
+            except Exception as e:
+                break
     return hit_objects
 
 

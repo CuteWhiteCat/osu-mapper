@@ -7,3 +7,5 @@ tensorboard_logs
 test
 test_inference.py
 osu_files
+.python-version
+output_maps

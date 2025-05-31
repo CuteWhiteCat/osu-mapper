@@ -81,7 +81,7 @@ class MapperEnv(gym.Env):
 
 
 # Added RL training function based on test.py and Mapperatorinator content
-def train_rl(num_episodes=100):
+def train_rl(num_episodes=10):
     # Initialize environment: update audio path to audios/audio.mp3
     env = MapperEnv(audio="audios/audio.mp3")
     for episode in range(num_episodes):
