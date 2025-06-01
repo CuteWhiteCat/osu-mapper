@@ -1,4 +1,6 @@
 import numpy as np
+import random
+from itertools import combinations
 from mapper_env import MapperEnv
 import matplotlib.pyplot as plt
 
@@ -27,19 +29,22 @@ q_table = {}
 episodes = 20
 alpha = 0.1
 gamma = 0.95
-epsilon = 0.4
+epsilon = 0.2
 
 rewards = []
 
 for episode in range(episodes):
-    # ε-greedy 策略選擇動作
-    if np.random.rand() < epsilon or len(q_table) == 0:
-        # 隨機組合一組 action
+    # Use ε-greedy per dimension
+    if len(q_table) == 0:
+        # If table is empty, fully random initialization
         action = [np.random.choice(vs) for vs in discrete_values]
     else:
-        # 選擇最大 Q 值的 action（tuple 形式）
         best_action_tuple = max(q_table.items(), key=lambda item: item[1])[0]
-        action = list(best_action_tuple)
+        best_action = list(best_action_tuple)
+        action = [
+            np.random.choice(vs) if np.random.rand() < epsilon else best_action[i]
+            for i, vs in enumerate(discrete_values)
+        ]
 
     action_array = np.array(action)
     action_key = tuple(action_array)
