@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 OSU_FOLDER = "./osu_files"
 
 # ==== 1. 解析 .osu 檔案 ====
-
-
 def parse_osu_file(filepath):
     with open(filepath, "r", encoding="utf-8", errors="replace") as f:
         lines = f.readlines()
@@ -34,22 +32,19 @@ def parse_osu_file(filepath):
                 x = int(parts[0])
                 y = int(parts[1])
                 time = int(parts[2])
-                object_type = int(parts[3]) & 0b1111  # Only keep object type flags
+                object_type = int(parts[3]) & 0b1111
 
                 time_delta = time - last_time if last_time != 0 else 0
                 last_time = time
 
-                hit_objects.append(
-                    [x / 512.0, y / 384.0, time_delta / 1000.0, object_type / 8.0]
-                )  # normalize
+                hit_objects.append([
+                    x / 512.0, y / 384.0, time_delta / 1000.0, object_type / 8.0
+                ])
             except Exception as e:
                 break
     return hit_objects
 
-
 # ==== 2. LSTM 模型 ====
-
-
 class BeatmapLSTM(nn.Module):
     def __init__(self, input_size=4, hidden_size=64, num_layers=2, dropout=0.3, bidirectional=True):
         super(BeatmapLSTM, self).__init__()
@@ -58,40 +53,29 @@ class BeatmapLSTM(nn.Module):
         self.num_directions = 2 if bidirectional else 1
 
         self.lstm = nn.LSTM(
-            input_size, 
-            hidden_size, 
-            num_layers, 
-            dropout=dropout if num_layers > 1 else 0.0, 
-            batch_first=True, 
+            input_size,
+            hidden_size,
+            num_layers,
+            dropout=dropout if num_layers > 1 else 0.0,
+            batch_first=True,
             bidirectional=bidirectional
         )
 
-        # 加一層非線性與 dropout
         self.fc = nn.Sequential(
             nn.Linear(hidden_size * self.num_directions, 64),
             nn.ReLU(),
             nn.Dropout(0.3),
-            nn.Linear(64, 1)  # 最終輸出一個值
+            nn.Linear(64, 1)
         )
 
     def forward(self, x, lengths):
-        # 打包序列
         packed = nn.utils.rnn.pack_padded_sequence(x, lengths, batch_first=True, enforce_sorted=False)
-        packed_output, (hn, cn) = self.lstm(packed)
-
-        # 使用最後一層的 hidden state（兩個方向拼接）
-        if self.bidirectional:
-            last_hidden = torch.cat((hn[-2], hn[-1]), dim=1)
-        else:
-            last_hidden = hn[-1]
-
-        out = self.fc(last_hidden)
-        return out.squeeze(1)
-
+        packed_output, _ = self.lstm(packed)
+        output, _ = nn.utils.rnn.pad_packed_sequence(packed_output, batch_first=True)
+        out = self.fc(output)
+        return out.squeeze(-1)  # shape: (B, T)
 
 # ==== 3. Dataset 與 DataLoader ====
-
-
 class BeatmapDataset(torch.utils.data.Dataset):
     def __init__(self, osu_folder, rating_dict):
         self.filepaths = [
@@ -99,7 +83,7 @@ class BeatmapDataset(torch.utils.data.Dataset):
             for f in os.listdir(osu_folder)
             if f.endswith(".osu")
         ]
-        self.rating_dict = rating_dict  # filename -> rating
+        self.rating_dict = rating_dict
 
     def __len__(self):
         return len(self.filepaths)
@@ -109,34 +93,31 @@ class BeatmapDataset(torch.utils.data.Dataset):
         filename = os.path.basename(path)
         sequence = parse_osu_file(path)
         rating = self.rating_dict.get(filename, 0.0)
-        return torch.tensor(sequence, dtype=torch.float32), torch.tensor(
-            rating, dtype=torch.float32
-        )
-
+        return torch.tensor(sequence, dtype=torch.float32), torch.tensor(rating, dtype=torch.float32)
 
 def collate_fn(batch):
     sequences, ratings = zip(*batch)
     lengths = [len(seq) for seq in sequences]
     padded_seqs = nn.utils.rnn.pad_sequence(sequences, batch_first=True)
-    return padded_seqs, torch.tensor(lengths), torch.tensor(ratings)
-
+    max_len = padded_seqs.size(1)
+    padded_targets = torch.zeros((len(sequences), max_len))
+    for i, (r, l) in enumerate(zip(ratings, lengths)):
+        padded_targets[i, :l] = r  # dummy target
+    return padded_seqs, torch.tensor(lengths), padded_targets
 
 # ==== 4. 訓練 ====
-
 def create_mask(lengths, max_len=None):
     if isinstance(lengths, list):
         lengths = torch.tensor(lengths)
     if max_len is None:
         max_len = lengths.max()
-    range_tensor = torch.arange(max_len).unsqueeze(0).to(lengths.device)  # shape: (1, max_len)
-    lengths = lengths.unsqueeze(1)  # shape: (batch_size, 1)
-    mask = (range_tensor < lengths).float()  # shape: (batch_size, max_len)
+    range_tensor = torch.arange(max_len).unsqueeze(0).to(lengths.device)
+    lengths = lengths.unsqueeze(1)
+    mask = (range_tensor < lengths).float()
     return mask
 
 def train_model(dataset, num_epochs=200, lr=0.001):
-    dataloader = torch.utils.data.DataLoader(
-        dataset, batch_size=8, shuffle=True, collate_fn=collate_fn
-    )
+    dataloader = torch.utils.data.DataLoader(dataset, batch_size=8, shuffle=True, collate_fn=collate_fn)
     model = BeatmapLSTM()
     optimizer = optim.Adam(model.parameters(), lr=lr)
     criterion = nn.MSELoss(reduction='none')
@@ -147,22 +128,17 @@ def train_model(dataset, num_epochs=200, lr=0.001):
         for batch in dataloader:
             inputs, lengths, targets = batch
             optimizer.zero_grad()
-            outputs = model(inputs, lengths)
-            loss = criterion(outputs, targets)
-             # 建立 mask
+            outputs = model(inputs, lengths)  # shape: (B, T)
+            loss = criterion(outputs, targets)  # shape: (B, T)
             mask = create_mask(lengths, max_len=outputs.size(1))  # shape: (B, T)
-            mask = mask.unsqueeze(-1)  # shape: (B, T, 1) for broadcasting
-
-            # 套用 mask，只考慮有效時間步
-            masked_loss = loss * mask  # shape: (B, T, F)
-            masked_loss = masked_loss.sum() / mask.sum()  # scalar
+            masked_loss = loss * mask
+            masked_loss = masked_loss.sum() / mask.sum()
             masked_loss.backward()
             optimizer.step()
             total_loss += masked_loss.item()
 
         avg_loss = total_loss / len(dataloader)
         losses.append(avg_loss)
-
         print(f"Epoch {epoch+1}/{num_epochs} - Loss: {avg_loss:.4f}")
 
     plt.plot(losses, label='loss')
@@ -173,14 +149,11 @@ def train_model(dataset, num_epochs=200, lr=0.001):
     plt.close()
 
     torch.save(model.state_dict(), "beatmap_model.pt")
-
     return model
-
 
 # ==== 5. 推論 API ====
 _loaded_model = None
 _device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 
 def _load_model():
     global _loaded_model
@@ -191,27 +164,21 @@ def _load_model():
         _loaded_model = m
     return _loaded_model
 
-
 @torch.no_grad()
 def evaluate_osu_file(osu_path: str) -> float:
-    """
-    給環境呼叫的 reward 函式：回傳預測 rating
-    """
     seq = parse_osu_file(osu_path)
     if not seq:
-        return 0.0  # 空圖給 0
+        return 0.0
     lengths = torch.tensor([len(seq)], device=_device)
     tensor = torch.tensor([seq], dtype=torch.float32, device=_device)
     model = _load_model()
-    score = model(tensor, lengths).item()
-    return float(score)
-
+    scores = model(tensor, lengths)  # shape: (1, T)
+    mask = create_mask(lengths, max_len=scores.size(1)).to(_device)
+    avg_score = (scores * mask).sum() / mask.sum()
+    return float(avg_score)
 
 if __name__ == "__main__":
     rating_dict = build_rating_dict(OSU_FOLDER)
-    dataset = BeatmapDataset("./osu_files", rating_dict)
+    dataset = BeatmapDataset(OSU_FOLDER, rating_dict)
     model = train_model(dataset)
-    # train_model 内已经 save 了，至此模型文件就生成在当前目录
-    print(
-        "beatmap_model.pt 已生成，大小：", os.path.getsize("beatmap_model.pt"), "bytes"
-    )
+    print("beatmap_model.pt 已生成，大小：", os.path.getsize("beatmap_model.pt"), "bytes")
