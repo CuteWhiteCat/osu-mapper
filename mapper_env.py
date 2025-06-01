@@ -22,18 +22,6 @@ class MapperEnv(gym.Env):
     def __init__(self, audio="audios/audio.mp3", osu_folder="output_maps"):
         super().__init__()
 
-        # 參數：7個 continuous + 1個 binary（super_timing）
-        self.action_space = gym.spaces.Box(
-            low=np.array([2.0, 3.0, 5.0, 0.8, 0.6, 1.0, 0.0]),  # 最後是 super_timing
-            high=np.array([6.0, 10.0, 10.0, 2.0, 1.4, 10.0, 1.0]),
-            dtype=np.float32,
-        )
-
-        # 觀察空間這裡先簡化為空向量（黑盒）
-        self.observation_space = gym.spaces.Box(
-            low=0.0, high=1.0, shape=(1,), dtype=np.float32
-        )
-
         with initialize(config_path="Mapperatorinator/configs", version_base="1.1"):
             self.cfg = compose(
                 config_name="inference_v30",
@@ -41,19 +29,16 @@ class MapperEnv(gym.Env):
                     f"audio_path={audio}",
                     f"output_path={osu_folder}",
                     "export_osz=True",
+                    "difficulty=6",
                 ],
             )
-
-    def reset(self):
-        # 可以加一些隨機初始化邏輯
-        return np.zeros((1,), dtype=np.float32)
 
     def step(self, action):
         # 解碼參數
         self._decode_action(action)
 
         # 跑 Mapperatorinator 並產生 .osu
-        osu_path = self._generate_map()  # removed self.cfg parameter
+        osu_path = self._generate_map()
 
         # 計算 reward
         reward = evaluate_osu_file(osu_path)
@@ -68,7 +53,9 @@ class MapperEnv(gym.Env):
         self.cfg.slider_multiplier = float(action[3])
         self.cfg.temperature = float(action[4])
         self.cfg.cfg_scale = float(action[5])
-        self.cfg.super_timing = bool(round(action[6]))
+        self.cfg.super_timing = bool(action[6])
+        self.cfg.mapper_id = int(action[7])
+        self.cfg.year = int(action[8])
 
     def _generate_map(self):
         # Use self.cfg instead of self.conf when calling main()
@@ -77,18 +64,3 @@ class MapperEnv(gym.Env):
             result_path = osz_path
         return result_path
 
-
-# Added RL training function based on test.py and Mapperatorinator content
-def train_rl(num_episodes=10):
-    # Initialize environment: update audio path to audios/audio.mp3
-    env = MapperEnv(audio="audios/audio.mp3")
-    for episode in range(num_episodes):
-        total_reward = 0
-        action = env.action_space.sample()
-        reward = env.step(action)
-        total_reward += reward
-        print(f"Episode {episode + 1}: Total Reward = {total_reward}")
-
-
-if __name__ == "__main__":
-    train_rl()

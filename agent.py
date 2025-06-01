@@ -13,14 +13,16 @@ discrete_values = [
     [0.8, 1.1, 1.4, 1.7, 2.0],                                                        # slider_multiplier
     [0.6, 0.8, 1.0, 1.2, 1.4],                                                        # temperature
     [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],                              # cfg_scale
-    [0.0, 1.0],                                                                       # super_timing
+    [0, 1],                                                                           # super_timing
+    [0],                                                                              # mapper_id
+    [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],               # year
 ]
 
 # Q-Table 以 tuple(action) 為 key
 q_table = {}
 
 # 訓練參數
-episodes = 100
+episodes = 10
 alpha = 0.1
 gamma = 0.95
 epsilon = 0.2
@@ -52,6 +54,7 @@ for episode in range(episodes):
     q_table[action_key] += alpha * (reward + gamma * max_next_q - q_table[action_key])
 
     rewards.append(reward)
+    print(f"Action: {action_key}")
     print(f"Episode {episode+1}/{episodes}: Reward = {reward:.4f}")
 
 plt.plot(rewards, label='reward')
