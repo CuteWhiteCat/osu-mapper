@@ -36,24 +36,7 @@ descriptors = [
 ]
 
 all_descriptors = set(descriptors)
-
-def generate_descriptors(best_desc, epsilon, all_descriptors):
-    k = len(best_desc)
-    best_desc_set = set(best_desc)
-
-    final_desc = []
-    for desc in best_desc:
-        if np.random.rand() < epsilon:
-            remaining = list(all_descriptors - best_desc_set)
-            final_desc.append(random.choice(remaining))
-        else:
-            final_desc.append(desc)
-
-    final_desc_set = set(final_desc)
-    neg_candidates = list(all_descriptors - final_desc_set)
-    final_neg_desc = random.sample(neg_candidates, k)
-
-    return final_desc, final_neg_desc
+descriptor_history = {}  # key: tuple of descriptors, value: reward
 
 # Q-Table 以 tuple(action) 為 key
 q_table = {}
@@ -66,14 +49,24 @@ epsilon = 0.2
 
 rewards = []
 
+def select_descriptors(epsilon, descriptor_history, all_descriptors):
+    k = random.randint(3, 5)
+    if np.random.rand() < epsilon or len(descriptor_history) == 0:
+        selected = random.sample(list(all_descriptors), k)
+    else:
+        best = max(descriptor_history.items(), key=lambda x: x[1])[0]
+        selected = list(best)
+
+    neg_candidates = list(all_descriptors - set(selected))
+    neg_selected = random.sample(neg_candidates, k)
+    return selected, neg_selected
+
 for episode in range(episodes):
     if len(q_table) == 0:
         best_action = [random.choice(vs) for vs in discrete_values]
-        best_desc = random.sample(descriptors, 3)
     else:
         best_action_tuple = max(q_table.items(), key=lambda item: item[1])[0]
         best_action = list(best_action_tuple)
-        best_desc = random.sample(descriptors, 3)  # 可以根據 action 決定實際對應描述
 
     action = [
         np.random.choice(vs) if np.random.rand() < epsilon else best_action[i]
@@ -82,8 +75,8 @@ for episode in range(episodes):
     action_array = np.array(action)
     action_key = tuple(action_array)
 
-    descriptors_selected, negative_descriptors_selected = generate_descriptors(
-        best_desc, epsilon, set(descriptors)
+    descriptors_selected, negative_descriptors_selected = select_descriptors(
+        epsilon, descriptor_history, all_descriptors
     )
 
     full_action = {
@@ -99,6 +92,10 @@ for episode in range(episodes):
 
     max_next_q = max(q_table.values(), default=0)
     q_table[action_key] += alpha * (reward + gamma * max_next_q - q_table[action_key])
+
+    descriptor_key = tuple(sorted(descriptors_selected))
+    if descriptor_key not in descriptor_history or reward > descriptor_history[descriptor_key]:
+        descriptor_history[descriptor_key] = reward
 
     rewards.append(reward)
     print(f"Full Action: {full_action}")
