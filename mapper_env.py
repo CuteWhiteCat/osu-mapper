@@ -3,6 +3,7 @@ import gym
 import numpy as np
 import sys, types, pathlib
 from hydra import compose, initialize
+import random
 
 _repo = pathlib.Path(__file__).resolve().parent / "Mapperatorinator"
 if _repo.exists():
@@ -24,7 +25,7 @@ class MapperEnv(gym.Env):
 
         with initialize(config_path="Mapperatorinator/configs", version_base="1.1"):
             self.cfg = compose(
-                config_name="inference_v30",
+                config_name="inference_v29",
                 overrides=[
                     f"audio_path={audio}",
                     f"output_path={osu_folder}",
@@ -56,6 +57,9 @@ class MapperEnv(gym.Env):
         self.cfg.super_timing = bool(action[6])
         self.cfg.mapper_id = int(action[7])
         self.cfg.year = int(action[8])
+        self.cfg.descriptors = [str(action[9])]
+        self.cfg.negative_descriptors = [str(action[10])]
+        self.cfg.seed = random.randint(0, 2147483647)
 
     def _generate_map(self):
         # Use self.cfg instead of self.conf when calling main()
