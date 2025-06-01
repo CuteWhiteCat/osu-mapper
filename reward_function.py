@@ -77,16 +77,10 @@ class BeatmapLSTM(nn.Module):
     def forward(self, x, lengths):
         # 打包序列
         packed = nn.utils.rnn.pack_padded_sequence(x, lengths, batch_first=True, enforce_sorted=False)
-        packed_output, (hn, cn) = self.lstm(packed)
-
-        # 使用最後一層的 hidden state（兩個方向拼接）
-        if self.bidirectional:
-            last_hidden = torch.cat((hn[-2], hn[-1]), dim=1)
-        else:
-            last_hidden = hn[-1]
-
-        out = self.fc(last_hidden)
-        return out.squeeze(1)
+        packed_output, _ = self.lstm(packed)
+        output, _ = nn.utils.rnn.pad_packed_sequence(packed_output, batch_first=True)  # (B, T, H)
+        out = self.fc(output)  # (B, T, 1)
+        return out.squeeze(-1)  # (B, T)
 
 
 # ==== 3. Dataset 與 DataLoader ====
@@ -97,7 +91,7 @@ class BeatmapDataset(torch.utils.data.Dataset):
         self.filepaths = [
             os.path.join(osu_folder, f)
             for f in os.listdir(osu_folder)
-            if f.endswith(".osu")
+            if f.endswith(".osz")
         ]
         self.rating_dict = rating_dict  # filename -> rating
 
@@ -126,11 +120,12 @@ def collate_fn(batch):
 def create_mask(lengths, max_len=None):
     if isinstance(lengths, list):
         lengths = torch.tensor(lengths)
+    lengths = lengths.to(torch.long)
     if max_len is None:
-        max_len = lengths.max()
-    range_tensor = torch.arange(max_len).unsqueeze(0).to(lengths.device)  # shape: (1, max_len)
-    lengths = lengths.unsqueeze(1)  # shape: (batch_size, 1)
-    mask = (range_tensor < lengths).float()  # shape: (batch_size, max_len)
+        max_len = lengths.max().item()
+    range_tensor = torch.arange(max_len, device=lengths.device).unsqueeze(0)  # (1, T)
+    lengths = lengths.unsqueeze(1)  # (B, 1)
+    mask = (range_tensor < lengths).float()  # (B, T)
     return mask
 
 def train_model(dataset, num_epochs=20, lr=0.001):
@@ -147,15 +142,10 @@ def train_model(dataset, num_epochs=20, lr=0.001):
         for batch in dataloader:
             inputs, lengths, targets = batch
             optimizer.zero_grad()
-            outputs = model(inputs, lengths)
-            loss = criterion(outputs, targets)
-             # 建立 mask
-            mask = create_mask(lengths, max_len=outputs.size(1))  # shape: (B, T)
-            mask = mask.unsqueeze(-1)  # shape: (B, T, 1) for broadcasting
-
-            # 套用 mask，只考慮有效時間步
-            masked_loss = loss * mask  # shape: (B, T, F)
-            masked_loss = masked_loss.sum() / mask.sum()  # scalar
+            outputs = model(inputs, lengths)  # (B, T)
+            loss = criterion(outputs, targets)  # (B, T)
+            mask = create_mask(lengths, max_len=outputs.size(1)).to(loss.device)  # (B, T)
+            masked_loss = (loss * mask).sum() / mask.sum()
             masked_loss.backward()
             optimizer.step()
             total_loss += masked_loss.item()
