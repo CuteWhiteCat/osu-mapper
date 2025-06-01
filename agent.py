@@ -9,7 +9,7 @@ env = MapperEnv(audio="audios/audio_dude.mp3")
 discrete_values = [
     [3.5, 4.0, 4.2, 4.5, 4.8, 5.0, 5.5, 6.0],                                         # circle_size
     [7.5, 8.0, 8.5, 9.0, 9.5, 10.0],                                                  # overall_difficulty
-    [8.0, 8.5, 8.7, 9.0, 9.3, 9.5, 10.0],               # approach_rate
+    [8.0, 8.5, 8.7, 9.0, 9.3, 9.5, 9.8, 10.0],               # approach_rate
     [0.8, 1.0, 1.2, 1.4, 1.7, 2.0],                                                   # slider_multiplier
     [0.6, 0.8, 1.0, 1.2, 1.4],                                                        # temperature
     [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],                              # cfg_scale
