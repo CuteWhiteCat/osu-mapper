@@ -404,6 +404,7 @@ def load_diff_model(
 
 @hydra.main(config_path="configs", config_name="inference_v30", version_base="1.1")
 def main(args: InferenceConfig):
+    torch.no_grad()
     prepare_args(args)
 
     model, tokenizer = load_model(args.model_path, args.osut5, args.device)
