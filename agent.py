@@ -3,13 +3,13 @@ from mapper_env import MapperEnv
 import matplotlib.pyplot as plt
 
 # 建立環境
-env = MapperEnv(audio="audios/audio.mp3")
+env = MapperEnv(audio="audios/audio_dude.mp3")
 
 # 設定參數空間的每個離散值
 discrete_values = [
     [3.5, 4.0, 4.2, 4.5, 4.8, 5.0, 5.5, 6.0],                                         # circle_size
     [7.5, 8.0, 8.5, 9.0, 9.5, 10.0],                                                  # overall_difficulty
-    [5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 8.7, 9.0, 9.3, 9.5, 10.0],               # approach_rate
+    [8.0, 8.5, 8.7, 9.0, 9.3, 9.5, 10.0],               # approach_rate
     [0.8, 1.0, 1.2, 1.4, 1.7, 2.0],                                                   # slider_multiplier
     [0.6, 0.8, 1.0, 1.2, 1.4],                                                        # temperature
     [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],                              # cfg_scale
@@ -22,10 +22,10 @@ discrete_values = [
 q_table = {}
 
 # 訓練參數
-episodes = 10
+episodes = 20
 alpha = 0.1
 gamma = 0.95
-epsilon = 0.2
+epsilon = 0.4
 
 rewards = []
 
