@@ -34,9 +34,13 @@ class MapperEnv(gym.Env):
                 ],
             )
 
-    def step(self, action):
-        # 解碼參數
-        self._decode_action(action)
+    def step(self, full_action):
+        action = full_action["parameters"]
+        descriptors = full_action.get("descriptors", [])
+        negative_descriptors = full_action.get("negative_descriptors", [])
+
+        # 解碼參數與設定描述詞
+        self._decode_action(action, descriptors, negative_descriptors)
 
         # 跑 Mapperatorinator 並產生 .osu
         osu_path = self._generate_map()
@@ -46,8 +50,7 @@ class MapperEnv(gym.Env):
 
         return reward
 
-    def _decode_action(self, action):
-        # 將連續空間值轉成實際 config 值 using self.cfg instead of self.conf
+    def _decode_action(self, action, descriptors, negative_descriptors):
         self.cfg.circle_size = float(action[0])
         self.cfg.overall_difficulty = float(action[1])
         self.cfg.approach_rate = float(action[2])
@@ -57,9 +60,10 @@ class MapperEnv(gym.Env):
         self.cfg.super_timing = bool(action[6])
         self.cfg.mapper_id = int(action[7])
         self.cfg.year = int(action[8])
-        self.cfg.descriptors = [str(action[9])]
-        self.cfg.negative_descriptors = [str(action[10])]
+        self.cfg.descriptors = descriptors
+        self.cfg.negative_descriptors = negative_descriptors
         self.cfg.seed = random.randint(0, 2147483647)
+
 
     def _generate_map(self):
         # Use self.cfg instead of self.conf when calling main()
