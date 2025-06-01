@@ -123,6 +123,15 @@ def collate_fn(batch):
 
 # ==== 4. 訓練 ====
 
+def create_mask(lengths, max_len=None):
+    if isinstance(lengths, list):
+        lengths = torch.tensor(lengths)
+    if max_len is None:
+        max_len = lengths.max()
+    range_tensor = torch.arange(max_len).unsqueeze(0).to(lengths.device)  # shape: (1, max_len)
+    lengths = lengths.unsqueeze(1)  # shape: (batch_size, 1)
+    mask = (range_tensor < lengths).float()  # shape: (batch_size, max_len)
+    return mask
 
 def train_model(dataset, num_epochs=20, lr=0.001):
     dataloader = torch.utils.data.DataLoader(
@@ -130,7 +139,7 @@ def train_model(dataset, num_epochs=20, lr=0.001):
     )
     model = BeatmapLSTM()
     optimizer = optim.Adam(model.parameters(), lr=lr)
-    criterion = nn.MSELoss()
+    criterion = nn.MSELoss(reduction='none')
     losses = []
 
     for epoch in range(num_epochs):
@@ -140,9 +149,16 @@ def train_model(dataset, num_epochs=20, lr=0.001):
             optimizer.zero_grad()
             outputs = model(inputs, lengths)
             loss = criterion(outputs, targets)
-            loss.backward()
+             # 建立 mask
+            mask = create_mask(lengths, max_len=outputs.size(1))  # shape: (B, T)
+            mask = mask.unsqueeze(-1)  # shape: (B, T, 1) for broadcasting
+
+            # 套用 mask，只考慮有效時間步
+            masked_loss = loss * mask  # shape: (B, T, F)
+            masked_loss = masked_loss.sum() / mask.sum()  # scalar
+            masked_loss.backward()
             optimizer.step()
-            total_loss += loss.item()
+            total_loss += masked_loss.item()
 
         avg_loss = total_loss / len(dataloader)
         losses.append(avg_loss)
