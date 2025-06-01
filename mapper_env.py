@@ -33,21 +33,23 @@ class MapperEnv(gym.Env):
                     "difficulty=6",
                 ],
             )
-
+    
     def step(self, full_action):
         action = full_action["parameters"]
         descriptors = full_action.get("descriptors", [])
         negative_descriptors = full_action.get("negative_descriptors", [])
 
-        # 解碼參數與設定描述詞
         self._decode_action(action, descriptors, negative_descriptors)
 
-        # 跑 Mapperatorinator 並產生 .osu
-        osu_path = self._generate_map()
+        try:
+            osu_path = self._generate_map()
+        except Exception as e:
+            print("❌ map 生成失敗，跳過本回合。")
+            print(f"Descriptors: {descriptors}") 
+            print(f"Negative Descriptors: {negative_descriptors}")
+            return 0  # 或 return 0 作為懲罰 reward
 
-        # 計算 reward
         reward = evaluate_osu_file(osu_path)
-
         return reward
 
     def _decode_action(self, action, descriptors, negative_descriptors):

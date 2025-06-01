@@ -1,0 +1,319 @@
+ python agent.py
+STFT kernels created, time used = 0.0128 seconds
+STFT filter created, time used = 0.0034 seconds
+Mel filter created, time used = 0.0034 seconds
+Using game mode 0
+Using HP drain rate 5.0
+Using slider tick rate 1.0
+Using hitsounded True
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:34<00:00,  1.70s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 21.67it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:49<00:00,  1.42it/s]
+seq len 544
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:03<00:00, 26.89it/s]
+Generated beatmap saved to output_maps\beatmap17b4c2804cc740d28c4e08a8ddcc88ef.osu
+Generated .osz saved to output_maps\beatmap3a2374c3b72f4f45af5923cf6fb268aa.osz
+Full Action: {'parameters': [4.2, 9.5, 10.0, 1.7, 0.8, 5.0, 1.0, 2706438.0, 2014.0], 'descriptors': ['complex sv', 'slidershapes', 'tech', 'finger control'], 'negative_descriptors': ['progression', 'improvisation', 'low sv', 'wide aim']}
+Episode 1/20: Reward = 0.0022
+STFT kernels created, time used = 0.0109 seconds
+STFT filter created, time used = 0.0032 seconds
+Mel filter created, time used = 0.0033 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:35<00:00,  1.79s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 21.11it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [05:17<00:00,  4.54s/it]
+seq len 2084
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:06<00:00, 15.44it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:06<00:00, 15.72it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:03<00:00, 31.48it/s]
+Generated beatmap saved to output_maps\beatmapd54b423717c04f4a98e60e145049880a.osu
+Generated .osz saved to output_maps\beatmapd7eb91f3a5da47de9a71922282c08b56.osz
+Full Action: {'parameters': [4.2, 9.5, 9.5, 1.7, 0.8, 5.0, 1.0, 1715720.0, 2014.0], 'descriptors': ['jump aim', 'reading', 'high sv', 'aim control'], 'negative_descriptors': ['simple', 'complex sv', 'playfield constraint', 'iNiS-style']}
+Episode 2/20: Reward = 0.0000
+STFT kernels created, time used = 0.0104 seconds
+STFT filter created, time used = 0.0030 seconds
+Mel filter created, time used = 0.0031 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:42<00:00,  2.14s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 20.48it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:45<00:00,  1.54it/s]
+seq len 470
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:03<00:00, 28.54it/s]
+Warning: Invalid slider duration at 28982
+Generated beatmap saved to output_maps\beatmap76843a0c3ea34123a7e6c3f0fbb2a652.osu
+Generated .osz saved to output_maps\beatmap658cbc6539764bafbdfe46c553d5da38.osz
+Full Action: {'parameters': [4.2, 9.5, 10.0, 1.7, 0.8, 5.0, 1.0, 2706438.0, 2014.0], 'descriptors': ['complex sv', 'finger control', 'slidershapes', 'tech'], 'negative_descriptors': ['complex snap divisors', 'clean', 'aim control', 'playfield constraint', 'overlap reading']}
+Episode 3/20: Reward = 0.0023
+STFT kernels created, time used = 0.0109 seconds
+STFT filter created, time used = 0.0029 seconds
+Mel filter created, time used = 0.0030 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:46<00:00,  2.35s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 19.92it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:53<00:00,  1.31it/s]
+seq len 542
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:03<00:00, 25.60it/s]
+Generated beatmap saved to output_maps\beatmapda2c28770b4e4a5fb528bf0ba8aba1d5.osu
+Generated .osz saved to output_maps\beatmapbc9ef56e8a1949719b5aa642cae1d623.osz
+Full Action: {'parameters': [4.8, 8.0, 10.0, 1.7, 0.8, 5.0, 1.0, 2706438.0, 2014.0], 'descriptors': ['improvisation', 'avant-garde', 'low sv'], 'negative_descriptors': ['tech', 'flow aim', 'alt']}
+Episode 4/20: Reward = 0.0022
+STFT kernels created, time used = 0.0102 seconds
+STFT filter created, time used = 0.0032 seconds
+Mel filter created, time used = 0.0033 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:41<00:00,  2.06s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 19.32it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:30<00:00,  2.31it/s]
+seq len 298
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:02<00:00, 42.19it/s]
+Warning: Invalid slider duration at 46035
+Warning: Invalid slider duration at 0
+Generated beatmap saved to output_maps\beatmap84db14c7b0234a178aa2251e0dbe5ec7.osu
+Generated .osz saved to output_maps\beatmapcf8d8a28fde849728fdb3d8449d3a71a.osz
+Full Action: {'parameters': [4.2, 10.0, 9.5, 1.7, 0.8, 5.0, 1.0, 2706438.0, 2014.0], 'descriptors': ['complex sv', 'finger control', 'slidershapes', 'tech'], 'negative_descriptors': ['streams', 'grid snap', 'improvisation', 'tournament custom', 'progression']}
+Episode 5/20: Reward = 0.0024
+STFT kernels created, time used = 0.0346 seconds
+STFT filter created, time used = 0.0027 seconds
+Mel filter created, time used = 0.0028 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:45<00:00,  2.29s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 18.63it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:26<00:00,  2.69it/s]
+seq len 268
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:02<00:00, 34.38it/s]
+Warning: Invalid slider duration at 9796
+Warning: Invalid slider duration at 28509
+Warning: Invalid slider duration at 0
+Generated beatmap saved to output_maps\beatmapdca8035395444743872c432dcb491f24.osu
+Generated .osz saved to output_maps\beatmap4b679751437a4dc7b168db40c5c9ef7a.osz
+Full Action: {'parameters': [4.2, 9.5, 10.0, 1.7, 1.2, 5.0, 1.0, 365586.0, 2014.0], 'descriptors': ['complex sv', 'finger control', 'slidershapes', 'tech'], 'negative_descriptors': ['grid snap', 'bursts', 'symmetrical', 'flow aim', 'playfield usage']}
+Episode 6/20: Reward = 0.0020
+STFT kernels created, time used = 0.0341 seconds
+STFT filter created, time used = 0.0039 seconds
+Mel filter created, time used = 0.0039 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:46<00:00,  2.34s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:04<00:00, 14.33it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:12<00:00,  5.61it/s]
+seq len 120
+Warning: Invalid slider duration at 48561
+Generated beatmap saved to output_maps\beatmap7cb9925cf32e45638912ed4bdc4e4663.osu
+Generated .osz saved to output_maps\beatmap92a9c8bfc79a4c37b9ad6eb6482b4577.osz
+Full Action: {'parameters': [4.2, 9.5, 10.0, 1.7, 1.4, 5.0, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'tournament custom', 'high contrast', 'perfect stacks'], 'negative_descriptors': ['precision', 'sharp aim', 'reading', 'streams', 'iNiS-style']}
+Episode 7/20: Reward = 0.0035
+STFT kernels created, time used = 0.0309 seconds
+STFT filter created, time used = 0.0033 seconds
+Mel filter created, time used = 0.0034 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:49<00:00,  2.46s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:06<00:00, 11.17it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:04<00:00, 17.00it/s]
+seq len 0
+Generated beatmap saved to output_maps\beatmap1fe5fb2a7eeb460caab1a33b0df0b4e5.osu
+Generated .osz saved to output_maps\beatmapb3fb32aa18694726a6a8382ef24c2bd0.osz
+Full Action: {'parameters': [4.2, 9.5, 10.0, 1.7, 1.4, 10.0, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['geometric', 'complex snap divisors', 'chaotic']}
+Episode 8/20: Reward = 0.0000
+STFT kernels created, time used = 0.0339 seconds
+STFT filter created, time used = 0.0033 seconds
+Mel filter created, time used = 0.0034 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:48<00:00,  2.44s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 20.74it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 17.94it/s]
+seq len 0
+Generated beatmap saved to output_maps\beatmap18ecdaefe9614f2b9083465904a68c1c.osu
+Generated .osz saved to output_maps\beatmap9a28cf23d30f4e76b9b2581e7adcd355.osz
+Full Action: {'parameters': [4.2, 9.5, 10.0, 1.7, 0.8, 6.0, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['reading', 'old-style revival', 'symmetrical', 'geometric']}
+Episode 9/20: Reward = 0.0000
+STFT kernels created, time used = 0.0323 seconds
+STFT filter created, time used = 0.0030 seconds
+Mel filter created, time used = 0.0031 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:45<00:00,  2.29s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:04<00:00, 16.90it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:44<00:00,  1.56it/s]
+seq len 456
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:04<00:00, 24.11it/s]
+Warning: Invalid slider duration at 31034
+Warning: Invalid slider duration at 0
+Warning: Invalid slider duration at 0
+Generated beatmap saved to output_maps\beatmape3bb0b49be8b4889ba6ff5dd98fcddec.osu
+Generated .osz saved to output_maps\beatmap04f9ac4b6a294c56baad143f57de8307.osz
+Full Action: {'parameters': [4.2, 9.5, 8.0, 2.0, 1.4, 5.0, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['repetition', 'precision', 'freeform', 'alt', 'playfield constraint']}
+Episode 10/20: Reward = 0.0021
+STFT kernels created, time used = 0.0110 seconds
+STFT filter created, time used = 0.0032 seconds
+Mel filter created, time used = 0.0033 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:44<00:00,  2.20s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 19.79it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:12<00:00,  5.48it/s]
+seq len 76
+Warning: Invalid slider duration at 62776
+Generated beatmap saved to output_maps\beatmap7775fb20e1e34980b2f1f0eacbb9f2b0.osu
+Generated .osz saved to output_maps\beatmap3d18eb978a8b4d0d980818c976cbdb91.osz
+Full Action: {'parameters': [4.5, 9.5, 10.0, 1.7, 0.8, 1.1, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['symmetrical', 'distance snapped', 'visually dense']}
+Episode 11/20: Reward = 0.0048
+STFT kernels created, time used = 0.0374 seconds
+STFT filter created, time used = 0.0035 seconds
+Mel filter created, time used = 0.0036 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:42<00:00,  2.13s/it]
+Descriptor class colorhax not found. Skipping.
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 19.61it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:51<00:00,  1.35it/s]
+seq len 543
+Descriptor class colorhax not found. Skipping.
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:04<00:00, 23.71it/s]
+Generated beatmap saved to output_maps\beatmapf6560ddaefb6427da28d2bc05f404204.osu
+Generated .osz saved to output_maps\beatmap1ff162cae03a4ab2bc2b27aa7347fd66.osz
+Full Action: {'parameters': [4.5, 9.5, 10.0, 1.7, 0.8, 1.1, 1.0, 13400075.0, 2014.0], 'descriptors': ['difficulty spike', 'visually dense', 'reading', 'colorhax'], 'negative_descriptors': ['flow aim', 'low sv', 'overlap reading', 'progression']}
+Episode 12/20: Reward = 0.0023
+STFT kernels created, time used = 0.0104 seconds
+STFT filter created, time used = 0.0028 seconds
+Mel filter created, time used = 0.0028 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:51<00:00,  2.57s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 19.42it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:34<00:00,  2.03it/s]
+seq len 231
+Generated beatmap saved to output_maps\beatmap2ece625025ad4f10bf5498322a8ccd3e.osu
+Generated .osz saved to output_maps\beatmap3f6fcece88ff4665a7f00b5a45b320ac.osz
+Full Action: {'parameters': [4.5, 9.5, 10.0, 1.7, 0.8, 1.1, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['reading', 'complex sv', 'playfield constraint', 'spaced streams']}
+Episode 13/20: Reward = 0.0045
+STFT kernels created, time used = 0.0342 seconds
+STFT filter created, time used = 0.0025 seconds
+Mel filter created, time used = 0.0026 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:47<00:00,  2.37s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 19.04it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:54<00:00,  1.28it/s]
+seq len 516
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:02<00:00, 34.43it/s]
+Generated beatmap saved to output_maps\beatmap76ad399513584236b67fe29ea5600a0e.osu
+Generated .osz saved to output_maps\beatmapaa6b30dc24f449d6861e05f621c4dc7a.osz
+Full Action: {'parameters': [4.5, 9.5, 10.0, 1.7, 0.8, 1.1, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['cutstreams', 'symmetrical', 'old-style revival', 'overlap reading']}
+Episode 14/20: Reward = 0.0064
+STFT kernels created, time used = 0.0316 seconds
+STFT filter created, time used = 0.0032 seconds
+Mel filter created, time used = 0.0032 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:53<00:00,  2.68s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 18.35it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [05:58<00:00,  5.11s/it]
+seq len 1363
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:07<00:00, 12.98it/s]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:03<00:00, 25.79it/s]
+Generated beatmap saved to output_maps\beatmap4fc6e04b51524fe4a51e85619b943036.osu
+Generated .osz saved to output_maps\beatmapea73ca11953a4ae894f5cdf4f5b63d20.osz
+Full Action: {'parameters': [4.5, 9.5, 10.0, 1.7, 0.6, 1.1, 1.0, 3723568.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['freeform', 'complex snap divisors', 'aim control']}
+Episode 15/20: Reward = 0.0111
+STFT kernels created, time used = 0.0304 seconds
+STFT filter created, time used = 0.0031 seconds
+Mel filter created, time used = 0.0032 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [01:00<00:00,  3.05s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:04<00:00, 14.85it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:25<00:00,  2.70it/s]
+seq len 202
+Generated beatmap saved to output_maps\beatmap4b7e2668e3454792b4c7751c41b609a0.osu
+Generated .osz saved to output_maps\beatmap588a7f38d2994481addd64face50d315.osz
+Full Action: {'parameters': [4.5, 9.5, 10.0, 1.7, 0.8, 1.1, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['freeform', 'low sv', 'stamina']}
+Episode 16/20: Reward = 0.0043
+STFT kernels created, time used = 0.0346 seconds
+STFT filter created, time used = 0.0031 seconds
+Mel filter created, time used = 0.0031 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:52<00:00,  2.63s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:04<00:00, 17.03it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:59<00:00,  1.17it/s]
+seq len 557
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:05<00:00, 17.71it/s]
+Generated beatmap saved to output_maps\beatmap2b87e267f5be4dfd8ef04ca226b4a7bb.osu
+Generated .osz saved to output_maps\beatmap8efda5ffe01c456aafe3cf00efe6c57d.osz
+Full Action: {'parameters': [4.5, 8.5, 10.0, 1.4, 0.8, 1.1, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['distance snapped', 'cutstreams', 'playfield constraint', 'slider tech', 'symmetrical']}
+Episode 17/20: Reward = 0.0022
+STFT kernels created, time used = 0.0112 seconds
+STFT filter created, time used = 0.0026 seconds
+Mel filter created, time used = 0.0027 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:54<00:00,  2.75s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 19.87it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:48<00:00,  1.43it/s]
+seq len 506
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:03<00:00, 28.74it/s]
+Generated beatmap saved to output_maps\beatmap64ec1d98a3394781b14de2dc1be8079d.osu
+Generated .osz saved to output_maps\beatmap82105f33b8ea4a34b181f217e025b9da.osz
+Full Action: {'parameters': [4.5, 9.5, 10.0, 1.7, 0.8, 1.1, 1.0, 2706438.0, 2014.0], 'descriptors': ['low sv', 'alt', 'avant-garde', 'improvisation', 'precision'], 'negative_descriptors': ['playfield usage', 'slidershapes', 'hexgrid', 'geometric', 'old-style revival']}
+Episode 18/20: Reward = 0.0021
+STFT kernels created, time used = 0.0336 seconds
+STFT filter created, time used = 0.0024 seconds
+Mel filter created, time used = 0.0025 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:53<00:00,  2.70s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:04<00:00, 17.39it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [04:10<00:00,  3.58s/it]
+seq len 863
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:06<00:00, 15.72it/s]
+Warning: Invalid slider duration at 24562
+Generated beatmap saved to output_maps\beatmapc4679842ec484268b290ecb2dfd74723.osu
+Generated .osz saved to output_maps\beatmap132b1d1b52874e2f8997b66a7accc36e.osz
+Full Action: {'parameters': [4.5, 9.5, 10.0, 1.7, 0.8, 1.1, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['low sv', 'old-style revival', 'jump aim', 'symmetrical']}
+Episode 19/20: Reward = 0.0051
+STFT kernels created, time used = 0.0348 seconds
+STFT filter created, time used = 0.0033 seconds
+Mel filter created, time used = 0.0033 seconds
+Generating timing
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 20/20 [00:50<00:00,  2.50s/it]
+Generating kiai
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:03<00:00, 20.06it/s]
+Generating map
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 70/70 [00:14<00:00,  4.91it/s]
+seq len 101
+Generated beatmap saved to output_maps\beatmape908ce1c96664d7188129f0fe7d3ec4c.osu
+Generated .osz saved to output_maps\beatmap708cba0652ab4d5282f0197e87535497.osz
+Full Action: {'parameters': [6.0, 9.5, 10.0, 1.7, 0.8, 1.1, 1.0, 2706438.0, 2014.0], 'descriptors': ['difficulty spike', 'flow aim', 'high contrast', 'perfect stacks', 'tournament custom'], 'negative_descriptors': ['tech', 'overlap reading', 'hexgrid', 'low sv']}
+Episode 20/20: Reward = 0.0037
+
+✅ 最佳參數組合：
+Action: (np.float64(4.5), np.float64(9.5), np.float64(10.0), np.float64(1.7), np.float64(0.8), np.float64(1.1), np.float64(1.0), np.float64(2706438.0), np.float64(2014.0))
+Estimated Q-value: 0.0027
