@@ -5,7 +5,7 @@ from mapper_env import MapperEnv
 import matplotlib.pyplot as plt
 
 # 建立環境
-env = MapperEnv(audio="audios/toki_to_uta.mp3")
+env = MapperEnv(audio="audios/audio.mp3")
 
 # 設定參數空間的每個離散值
 discrete_values = [
