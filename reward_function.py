@@ -128,7 +128,7 @@ def create_mask(lengths, max_len=None):
     mask = (range_tensor < lengths).float()  # (B, T)
     return mask
 
-def train_model(dataset, num_epochs=20, lr=0.001):
+def train_model(dataset, num_epochs=200, lr=0.001):
     dataloader = torch.utils.data.DataLoader(
         dataset, batch_size=8, shuffle=True, collate_fn=collate_fn
     )
