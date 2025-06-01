@@ -15,24 +15,22 @@ discrete_values = [
     [0.8, 1.0, 1.2, 1.4, 1.7, 2.0],
     [0.6, 0.8, 1.0, 1.2, 1.4],
     [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0],
-    [1],
+    [0, 1],
     [6381153, 8688812, 3250792, 1634445, 4219034, 2202163, 1661227, 199669, 6443117, 896613, 26232141, 12763959, 2506267, 10354460, 9088487, 8095457, 11758667, 7354729, 365586, 4413842, 8953955, 1623405, 9014033, 3334163, 4378277, 2706438, 4452992, 9426712, 3620525, 4783121, 9320502, 3638962, 4323406, 1474421, 266596, 416662, 3621552, 1721120, 15959751, 4754771, 3552948, 5404892, 11545816, 14729352, 7715620, 5115995, 2542623, 14261540, 9416836, 873961, 1047883, 1848318, 13400075, 1947052, 1826598, 7451883, 10284894, 16080485, 3664366, 10631018, 15822813, 2683648, 1787171, 4944043, 3475189, 2688581, 11443437, 7733431, 3723568, 870584, 1872496, 1592447, 6203841, 873758, 53378, 4785223, 12914206, 14305018, 243917, 50265, 2123087, 1715720, 16368250, 1171628, 284905, 1343783, 4541873, 4086497, 44308, 1249323],
     [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023]
 ]
 
 descriptors = [
-    "slider only", "circle only", "collab", "megacollab", "marathon", "gungathon", "multi-song",
-    "variable timing", "accelerating bpm", "time signatures", "storyboard", "storyboard gimmick",
-    "keysounds", "download unavailable", "custom skin", "featured artist", "custom song", "style",
+    "variable timing", "accelerating bpm",
     "messy", "geometric", "grid snap", "hexgrid", "freeform", "symmetrical", "old-style revival",
     "clean", "slidershapes", "distance snapped", "iNiS-style", "avant-garde", "perfect stacks",
-    "ninja spinners", "simple", "chaotic", "repetition", "progression", "high contrast",
-    "improvisation", "playfield usage", "playfield constraint", "video gimmick", "difficulty spike",
+    "simple", "chaotic", "repetition", "progression", "high contrast",
+    "improvisation", "playfield usage", "playfield constraint", "difficulty spike",
     "low sv", "high sv", "colorhax", "tech", "slider tech", "complex sv", "reading",
     "visually dense", "overlap reading", "alt", "jump aim", "sharp aim", "wide aim",
     "linear aim", "aim control", "flow aim", "precision", "finger control",
     "complex snap divisors", "bursts", "streams", "spaced streams", "cutstreams",
-    "stamina", "mapping contest", "tournament custom", "tag", "port"
+    "stamina", "tournament custom"
 ]
 
 all_descriptors = set(descriptors)
