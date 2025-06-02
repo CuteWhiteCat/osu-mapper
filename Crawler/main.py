@@ -83,13 +83,10 @@ async def search_beatmaps_page(query, mode="osu", status="ranked", cursor_string
     return None 
 
 def filter_beatmapset(bms_data):
-    
     if bms_data.get("status") not in ["ranked"]: 
         return False
-    
     if bms_data.get("play_count", 0) < 1000:
         return False
-
     for diff in bms_data.get("beatmaps", []):
         stars = diff.get("difficulty_rating", 0)
         ar = diff.get("ar", 0)
@@ -98,10 +95,8 @@ def filter_beatmapset(bms_data):
         # hp = diff.get("drain", 0)   
         # bpm = diff.get("bpm", 0)
         # length_seconds = diff.get("total_length", 0)
-
         if low_star_limit <= stars <= high_star_limit and low_ar_limit <= ar <= high_ar_limit:
             return True 
-
     return False 
 
 async def download_beatmap_osz(set_id, download_url_template, target_dir):
